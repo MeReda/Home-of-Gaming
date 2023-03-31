@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from "/img/logo.svg";
+import NewLogo from "/img/logo.svg";
 import './index.scss'; // import the SCSS file
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'; // import Bootstrap components
 import {FaInstagram } from "react-icons/fa";
@@ -35,7 +35,7 @@ const Footer = () => {
         <hr className="mt-4 mb-3" />
         <Row className="mt-4 align-items-center d-flex justify-content-center" >
           <Col md={1} className="text-center align-self-center">
-            <img src={Logo} alt="" width="65" />
+            <img src={NewLogo} alt="" width="65" />
           </Col>
           <Col md={4} className="text-center align-self-center">
             <p>&copy; {new Date().getFullYear()} Home of Gaming. All rights reserved.</p>
