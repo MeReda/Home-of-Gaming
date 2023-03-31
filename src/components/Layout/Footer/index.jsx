@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from "/img/logo.png";
+import Logo from "/img/logo.svg";
 import './index.scss'; // import the SCSS file
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'; // import Bootstrap components
 import {FaInstagram } from "react-icons/fa";
