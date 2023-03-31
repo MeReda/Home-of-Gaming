@@ -1,4 +1,5 @@
 import NewLogo from "/img/logo.svg";
+import Logo from "/img/logo2.svg";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +15,7 @@ const NavBar = () => {
       <div className="container">
         <a className="navbar-brand" href="index.html" id="logo">
           <span>
-            <img src={NewLogo} alt="" width="100" />
+            <img src={Logo} alt="" width="100" />
           </span>
         </a>
         <button
