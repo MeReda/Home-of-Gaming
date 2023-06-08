@@ -94,9 +94,6 @@ const Bootcamp = () => {
               <label htmlFor="fullName">
                 Nom et prénom: <span className="text-danger">*</span>
               </label>
-            </div>
-
-            <div>
               <input
                 type="text"
                 name="nom"
@@ -106,15 +103,11 @@ const Bootcamp = () => {
                 required
               />
             </div>
-            <br />
 
             <div className="form-group my-3">
               <label htmlFor="email">
                 Adresse Email: <span className="text-danger">*</span>
               </label>
-            </div>
-
-            <div>
               <input
                 type="email"
                 name="email"
@@ -124,13 +117,9 @@ const Bootcamp = () => {
                 placeholder="Entrez votre adresse email"
               />
             </div>
-            <br />
 
             <div className="form-group my-3">
               <label htmlFor="numOfPeople">Nombre de personnes:</label>
-            </div>
-
-            <div>
               <input
                 type="range"
                 min="5"
@@ -143,14 +132,11 @@ const Bootcamp = () => {
               />
               <div>{numOfPeople} personnes</div>
             </div>
-            <br />
 
             <div className="form-group my-3">
               <label htmlFor="date">
                 Date: <span className="text-danger">*</span>
               </label>
-            </div>
-            <div>
               <input
                 type="date"
                 name="date"
@@ -159,14 +145,11 @@ const Bootcamp = () => {
                 required
               />
             </div>
-            <br />
 
             <div className="form-group my-3">
               <label htmlFor="time">
                 Heure: <span className="text-danger">*</span>
               </label>
-            </div>
-            <div>
               <input
                 type="time"
                 name="hour"
@@ -175,21 +158,14 @@ const Bootcamp = () => {
                 required
               />
             </div>
-            <br />
 
             <div className="form-group my-3">
               <label htmlFor="message">Message:</label>
-              <textarea
-                className="form-control"
-                id="message"
-                value={message}
-                onChange={handleMessageChange}
-              />
+              <textarea name="message" className="form-control" id="message" />
             </div>
-            <br />
 
             <button type="submit" className="btn btn-primary my-3">
-              Submit
+              Envoyer
             </button>
           </form>
         </div>
