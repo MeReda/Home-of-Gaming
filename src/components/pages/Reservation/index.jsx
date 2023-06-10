@@ -1,21 +1,11 @@
-import { useEffect, useState } from "react";
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-import emailjs from 'emailjs-com';
+import { useEffect, useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import "./index.scss";
 import Loader from "../../Loader";
-import tarif from "./tarif.jpeg";
 
 const Reservation = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [reservation, setReservation] = useState({ 
-    name: '', 
-    date: '', 
-    time: '', 
-    numberOfPeople: '',
-    phoneNumber: '' 
-  });
+  const refForm = useRef();
 
   useEffect(() => {
     setIsLoading(true);
@@ -24,49 +14,43 @@ const Reservation = () => {
     }, 3000);
   }, []);
 
-  const handleChange = (e) => {
-    setReservation({...reservation, [e.target.name]: e.target.value});
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    // Validation for date and time
-    const selectedDateTime = new Date(`${reservation.date}T${reservation.time}`);
-    if (selectedDateTime <= new Date()) {
-      alert('Veuillez choisir une date et heure en future.');
-      return;
-    }
-  
-    const db = firebase.firestore();
-    try {
-      await db.collection('reservations').add({
-        ...reservation
-      });
-  
-      // Send email
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', reservation, 'YOUR_USER_ID')
-        .then((response) => {
-           console.log('SUCCESS!', response.status, response.text);
-        }, (error) => {
-           console.log('FAILED...', error);
-        });
-  
-      alert('Reservation made successfully!');
-    } catch (error) {
-      console.error("Error adding document: ", error);
-    }
-  }
-  
   if (isLoading) {
     return <Loader />;
   }
 
+  const sendEmail = async (e) => {
+    e.preventDefault();
+
+    try {
+      await emailjs.sendForm(
+        "service_zz59qhc",
+        "template_nbklcpc",
+        refForm.current,
+        "g-c31pXbX-Qd1x3rM"
+      );
+
+      alert("Message sent successfully");
+      const inputs = refForm.current.querySelectorAll(
+        "input[type=text], input[type=email], textarea"
+      );
+
+      inputs.forEach((input) => (input.value = ""));
+    } catch (error) {
+      console.error(error);
+      alert("There was an error, please try again");
+    }
+  };
+
   return (
     <div className="container-fluid">
-      <div className="row justify-content-between" style={{ marginTop: "50px" }}>
+      <div
+        className="row justify-content-between"
+        style={{ marginTop: "50px" }}
+      >
         <div className="col-lg-6 tarif-container">
-          <h3 style={{fontWeight: "bold", fontSize: "35px", marginTop: "100px"}}>
+          <h3
+            style={{ fontWeight: "bold", fontSize: "35px", marginTop: "100px" }}
+          >
             HOME OF GAMING C'EST QUOI ?
           </h3>
           <p style={{ marginBottom: "25px", fontSize: "25px" }}>
@@ -83,12 +67,27 @@ const Reservation = () => {
           </ul>
         </div>
         <div className="col-lg-6 reservation-container">
-          <form onSubmit={handleSubmit}>
-            <input name="name" type="text" value={reservation.name} onChange={handleChange} placeholder="Votre nom" required />
-            <input name="phoneNumber" type="tel" maxLength="15" pattern="\d*" value={reservation.phoneNumber} onChange={handleChange} placeholder="Votre numero de telephone" required />
-            <input name="date" type="date" value={reservation.date} onChange={handleChange} required />
-            <input name="time" type="time" value={reservation.time} onChange={handleChange} required />
-            <input name="numberOfPeople" type="number" min="1" max="5" value={reservation.numberOfPeople} onChange={handleChange} placeholder="Nombre de personnes" required />
+          <form ref={refForm} onSubmit={sendEmail}>
+            <input type="text" name="section" value="Reservation" hidden />
+            <input name="nom" type="text" placeholder="Votre nom" required />
+            <input
+              name="tel"
+              type="tel"
+              maxLength="15"
+              pattern="\d*"
+              placeholder="Votre numero de telephone"
+              required
+            />
+            <input name="date" type="date" required />
+            <input name="houre" type="time" required />
+            <input
+              name="nombre_personnes"
+              type="number"
+              min="1"
+              max="5"
+              placeholder="Nombre de personnes"
+              required
+            />
             <button type="submit">Reserver</button>
           </form>
         </div>

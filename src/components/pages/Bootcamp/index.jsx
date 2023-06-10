@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import "./index.scss";
 import Loader from "../../Loader";
 
@@ -90,6 +90,7 @@ const Bootcamp = () => {
 
         <div className="col-md-5 ms-auto">
           <form ref={refForm} onSubmit={sendEmail}>
+            <input type="text" name="section" value="Bootcamp" hidden />
             <div className="form-group my-3">
               <label htmlFor="fullName">
                 Nom et prénom: <span className="text-danger">*</span>
@@ -106,21 +107,22 @@ const Bootcamp = () => {
 
             <div className="form-group my-3">
               <label htmlFor="email">
-                Adresse Email: <span className="text-danger">*</span>
+                Telephone: <span className="text-danger">*</span>
               </label>
               <input
-                type="email"
-                name="email"
+                type="tel"
+                name="tel"
                 className="form-control"
                 id="email"
                 required
-                placeholder="Entrez votre adresse email"
+                placeholder="Entrez votre numero de téléphone"
               />
             </div>
 
             <div className="form-group my-3">
               <label htmlFor="numOfPeople">Nombre de personnes:</label>
               <input
+                name="nombre_personnes"
                 type="range"
                 min="5"
                 max="15"
@@ -152,7 +154,7 @@ const Bootcamp = () => {
               </label>
               <input
                 type="time"
-                name="hour"
+                name="houre"
                 className="form-control"
                 id="time"
                 required
